@@ -127,5 +127,5 @@ src/main/resources/wsdl/tracking.xsd
 
 La generación de clases JAXB está configurada en el pom.xml.
 
-La configuración principal del servicio SOAP está en WebServiceConfig.java.
+La configuración principal del servicio SOAP está en WebServiceConfig.java
 

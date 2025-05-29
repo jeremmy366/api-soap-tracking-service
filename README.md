@@ -1,82 +1,88 @@
+***📦 SOAP Tracking Service***
+
 Proyecto creado por Johanna Nathaly Moncayo Valdiviezo y Jeremmy Daniel Varela Ronquillo
-# SOAP Tracking Service
 
-Servicio web SOAP para consulta de estado de paquetes, implementado en Java 21, Spring Boot 3.5.0, Spring Web Services y PostgreSQL.
+Servicio web SOAP para consulta del estado de paquetes, implementado en Java 21, Spring Boot 3.5.0, Spring Web Services y PostgreSQL.
 
-## 📂 Estructura del proyecto
-
-Directory structure:
-└── jeremmy366-api-soap-tracking-service/
-    ├── mvnw
-    ├── mvnw.cmd
-    ├── pom.xml
-    ├── src/
-    │   ├── main/
-    │   │   ├── java/
-    │   │   │   └── soap/
-    │   │   │       ├── SoapApplication.java
-    │   │   │       ├── WebServiceConfig.java
-    │   │   │       ├── endpoint/
-    │   │   │       │   └── TrackingEndpoint.java
-    │   │   │       ├── entity/
-    │   │   │       │   ├── PackageEntity.java
-    │   │   │       │   └── TrackingEventEntity.java
-    │   │   │       ├── repository/
-    │   │   │       │   └── PackageRepository.java
-    │   │   │       └── service/
-    │   │   │           ├── InMemoryTrackingService.java
-    │   │   │           ├── JpaTrackingService.java
-    │   │   │           ├── TrackingNotFoundException.java
-    │   │   │           └── TrackingService.java
-    │   │   └── resources/
-    │   │       ├── application.properties
-    │   │       └── wsdl/
-    │   │           └── tracking.xsd
-    │   └── test/
-    │       └── java/
-    │           └── soap/
-    │               └── SoapApplicationTests.java
-    └── .mvn/
-        └── wrapper/
-            └── maven-wrapper.properties
-
-
-## 🚀 Despliegue
-
-1. **Clonar el repositorio**  
-   ```bash
-   git clone https://github.com/tu_usuario/soap-tracking-service.git
-   cd soap-tracking-service
-
+***📂 Estructura del Proyecto***
+```bash
+jeremmy366-api-soap-tracking-service/
+├── mvnw
+├── mvnw.cmd
+├── pom.xml
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── soap/
+│   │   │       ├── SoapApplication.java
+│   │   │       ├── WebServiceConfig.java
+│   │   │       ├── endpoint/
+│   │   │       │   └── TrackingEndpoint.java
+│   │   │       ├── entity/
+│   │   │       │   ├── PackageEntity.java
+│   │   │       │   └── TrackingEventEntity.java
+│   │   │       ├── repository/
+│   │   │       │   └── PackageRepository.java
+│   │   │       └── service/
+│   │   │           ├── InMemoryTrackingService.java
+│   │   │           ├── JpaTrackingService.java
+│   │   │           ├── TrackingNotFoundException.java
+│   │   │           └── TrackingService.java
+│   │   └── resources/
+│   │       ├── application.properties
+│   │       └── wsdl/
+│   │           └── tracking.xsd
+│   └── test/
+│       └── java/
+│           └── soap/
+│               └── SoapApplicationTests.java
+└── .mvn/
+    └── wrapper/
+        └── maven-wrapper.properties
+```
+**🚀 Despliegue**
+1. Clonar el repositorio
+```bash
+git clone https://github.com/tu_usuario/soap-tracking-service.git
+cd soap-tracking-service
+```
 2. Configurar la base de datos
 
-Crear la BD en PostgreSQL:
+2.1. Crear la base de datos en PostgreSQL:
+```bash
 CREATE DATABASE trackdb;
-Ajustar credenciales en src/main/resources/application.properties:
+```
+2.2. Editar src/main/resources/application.properties con tus credenciales:
+```bash
 spring.datasource.url=jdbc:postgresql://localhost:5432/trackdb
 spring.datasource.username=TU_USUARIO
 spring.datasource.password=TU_CONTRASEÑA
-
+```
 3. Compilar y generar código JAXB
-
-.\mvnw.cmd clean compile
-
+```bash
+./mvnw clean compile
+```
 4. Ejecutar la aplicación
 
-Sin base de datos: 
-.\mvnw.cmd spring-boot:run -Dspring-boot.run.profiles=memory
+Con datos en memoria (sin PostgreSQL):
+```bash
+./mvnw spring-boot:run -Dspring-boot.run.profiles=memory
+```
+Con base de datos (modo producción):
+```bash
+./mvnw spring-boot:run -Dspring-boot.run.profiles=prod
+```
+El servicio estará disponible en:
+http://localhost:8080/ws
 
-Con base de datos
-
-.\mvnw.cmd spring-boot:run -Dspring-boot.run.profiles=prod
-
-El servicio estará en http://localhost:8080/ws
-
-El WSDL en http://localhost:8080/ws/tracking.wsdl
+El archivo WSDL estará en:
+http://localhost:8080/ws/tracking.wsdl
 
 🧪 Pruebas
 1. Consultar tracking válido
-Request (SOAP 1.1)
+
+Request (SOAP 1.1):
+```bash
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
                   xmlns:tns="http://espe.edu.ec/soap">
   <soapenv:Header/>
@@ -86,7 +92,9 @@ Request (SOAP 1.1)
     </tns:getTrackingRequest>
   </soapenv:Body>
 </soapenv:Envelope>
-Response
+```
+Response:
+```bash
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
                   xmlns:tns="http://espe.edu.ec/soap">
   <soapenv:Body>
@@ -99,19 +107,25 @@ Response
         <tns:description>Paquete recibido en bodega central</tns:description>
         <tns:location>Lima</tns:location>
       </tns:history>
-      <!-- ... -->
     </tns:getTrackingResponse>
   </soapenv:Body>
 </soapenv:Envelope>
-
+```
 2. Consultar tracking inválido
-Cambia trackingId por uno no existente.
 
-Deberías recibir un SOAP Fault con faultcode CLIENT y mensaje descriptivo.
+Utiliza un trackingId inexistente.
+Deberías recibir una respuesta SOAP Fault con:
 
-📖 Documentación adicional
-El esquema XSD completo está en src/main/resources/wsdl/tracking.xsd.
+faultcode: CLIENT
 
-Para generar las clases JAXB: revisa la configuración del plugin en pom.xml.
+Mensaje descriptivo del error.
 
-La configuración de Spring-WS en WebServiceConfig.java.
+📖 Documentación Adicional
+
+El esquema XSD se encuentra en:
+src/main/resources/wsdl/tracking.xsd
+
+La generación de clases JAXB está configurada en el pom.xml.
+
+La configuración principal del servicio SOAP está en WebServiceConfig.java.
+

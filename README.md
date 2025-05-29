@@ -6,7 +6,7 @@ Servicio web SOAP para consulta del estado de paquetes, implementado en Java 21,
 
 ***📂 Estructura del Proyecto***
 ```bash
-jeremmy366-api-soap-tracking-service/
+api-soap-tracking-service/
 ├── mvnw
 ├── mvnw.cmd
 ├── pom.xml

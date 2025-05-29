@@ -66,11 +66,11 @@ spring.datasource.password=TU_CONTRASEÑA
 
 Con datos en memoria (sin PostgreSQL):
 ```bash
-./mvnw spring-boot:run -Dspring-boot.run.profiles=memory
+.\mvnw.cmd spring-boot:run "-Dspring-boot.run.profiles=memory"
 ```
 Con base de datos (modo producción):
 ```bash
-./mvnw spring-boot:run -Dspring-boot.run.profiles=prod
+.\mvnw.cmd spring-boot:run "-Dspring-boot.run.profiles=prod"
 ```
 El servicio estará disponible en:
 http://localhost:8080/ws

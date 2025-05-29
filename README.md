@@ -95,21 +95,26 @@ Request (SOAP 1.1):
 ```
 Response:
 ```bash
-<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
-                  xmlns:tns="http://espe.edu.ec/soap">
-  <soapenv:Body>
-    <tns:getTrackingResponse>
-      <tns:status>Entregado</tns:status>
-      <tns:currentLocation>Lima</tns:currentLocation>
-      <tns:estimatedDeliveryDate>2025-04-15</tns:estimatedDeliveryDate>
-      <tns:history>
-        <tns:date>2025-04-05T00:00:00</tns:date>
-        <tns:description>Paquete recibido en bodega central</tns:description>
-        <tns:location>Lima</tns:location>
-      </tns:history>
-    </tns:getTrackingResponse>
-  </soapenv:Body>
-</soapenv:Envelope>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+    <SOAP-ENV:Header/>
+    <SOAP-ENV:Body>
+        <ns2:getTrackingResponse xmlns:ns2="http://espe.edu.ec/soap">
+            <ns2:status>Entregado</ns2:status>
+            <ns2:currentLocation>Arequipa</ns2:currentLocation>
+            <ns2:estimatedDeliveryDate>2025-04-15-05:00</ns2:estimatedDeliveryDate>
+            <ns2:history>
+                <ns2:date>2025-04-05T10:00:00.000-05:00</ns2:date>
+                <ns2:description>Paquete recibido en bodega central</ns2:description>
+                <ns2:location>Lima</ns2:location>
+            </ns2:history>
+            <ns2:history>
+                <ns2:date>2025-04-07T08:30:00.000-05:00</ns2:date>
+                <ns2:description>Salida hacia Lima</ns2:description>
+                <ns2:location>Arequipa</ns2:location>
+            </ns2:history>
+        </ns2:getTrackingResponse>
+    </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
 ```
 2. Consultar tracking inválido
 
